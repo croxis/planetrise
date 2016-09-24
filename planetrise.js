@@ -30,24 +30,25 @@ Module.register("planetrise", {
         latitude: 34.2,
         longitude: -118.1,
         //bodies: ['Sun', 'Moon', 'Mercury', 'Venus', 'Mars', 'Jupiter', 'Saturn']
-        bodies: {'Sun': '☉',
-                'Moon': '☽',
-            'Mercury': '☿',
-            'Venus': '♀',
-            'Mars': '♂',
-            'Jupiter': '♃',
-            'Saturn': '♄',
+	//FA does not have jupiter and saturn unfortunately, so be creative
+        bodies: {'Sun': 'sun-o',
+                'Moon': 'moon-o',
+            'Mercury': 'mercury',
+            'Venus': 'venus',
+            'Mars': 'mars',
+            'Jupiter': 'circle-thin',
+            'Saturn': 'dot-circle-o',
         }
     },
     // Define start sequence.
-	start: function() {
-		Log.info("Starting module: " + this.name);
+        start: function() {
+                Log.info("Starting module: " + this.name);
 
-		// Schedule update interval.
-		var self = this;
-		setInterval(function() {
-			self.updateDom();
-		}, 1000*60);
+                // Schedule update interval.
+                var self = this;
+                setInterval(function() {
+                        self.updateDom();
+                }, 1000*60);
     },
     // Override dom generator.
     getDom: function() {
@@ -68,11 +69,9 @@ Module.register("planetrise", {
                 planetWrapper.className = "normal";
                 var symbolWrapper = document.createElement("td");
                 symbolWrapper.className = "symbol";
-                //If fontio ever supports the full set
-                //var symbol =  document.createElement("span");
-                //symbol.className = "fa fa-" + this.config.bodies[Astronomy.Body[i].Name];
-                //symbolWrapper.appendChild(symbol);
-                symbolWrapper.innerHTML = '<center>' + this.config.bodies[Astronomy.Body[i].Name] + '</center>';
+                var symbol =  document.createElement("span");
+                symbol.className = "fa fa-" + this.config.bodies[Astronomy.Body[i].Name];
+                symbolWrapper.appendChild(symbol);
                 planetWrapper.appendChild(symbolWrapper);
                 var titleWrapper = document.createElement("td");
                 titleWrapper.innerHTML = Astronomy.Body[i].Name;
